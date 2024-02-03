@@ -1,37 +1,19 @@
 
 <template>
-  <nav>
-    <router-link :to="{ name : 'learners-list' }">Liste des apprenants</router-link>
-    <router-link :to="{ name : 'results-list' }">Liste des résultats</router-link>
-  </nav>
+  <b-navbar toggleable="lg" type="dark" variant="info">
+    <b-navbar-brand :to="{ name : 'home' }">Code App</b-navbar-brand>
+    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+    <b-collapse id="nav-collapse" is-nav>
+      <b-navbar-nav>
+        <b-nav-item :to="{ name : 'learners-list' }">Liste des apprenants</b-nav-item>
+        <b-nav-item :to="{ name : 'results-list' }">Liste des résultats</b-nav-item>
+      </b-navbar-nav>
+    </b-collapse>
+  </b-navbar>
 </template>
 
 <script setup>
 </script>
 
 <style scoped>
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
 </style>
