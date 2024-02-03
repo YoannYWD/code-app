@@ -10,12 +10,18 @@
       :tbody-tr-class="getRowColor"
       head-variant="light"
     >
+      <template #cell(actions)="data">
+        <!-- {{ data.item.name.first }} is {{ data.item.age }} years old -->
+        <b-button title="Voir les notes">
+          <b-icon icon="eye" aria-hidden="true"></b-icon>
+        </b-button>
+      </template>
     </b-table>
   </div>
 </template>
 
 <script>
-import store          from '../../stores/learners/learners.js';
+import store          from '../../stores/learners/index.js';
 import { mapGetters } from 'vuex';
 
 export default {
