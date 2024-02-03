@@ -8,14 +8,8 @@ This app uses :
 
 ## Project Setup
 
-Clone this repository.
-
 ```sh
+git clone https://github.com/YoannYWD/code-app.git
 npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
 npm run dev
 ```
