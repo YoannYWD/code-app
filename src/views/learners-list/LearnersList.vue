@@ -1,10 +1,25 @@
 <template>
 <div>
-  <h1>Liste des apprenants</h1>
+  <h1>Learners list</h1>
+  <b-table :items="learnersWithAverageNote" :fields="tableFields"></b-table>
 </div>
 </template>
 
-<script setup>
+<script>
+import store          from '../../stores/learners/learners.js';
+import { mapGetters } from 'vuex';
+
+export default {
+  store,
+  data () {
+    return {
+      tableFields : ['firstName', 'lastName', 'birthDate', 'averageNote', 'actions']
+    };
+  },
+  computed : {
+    ...mapGetters(['learnersWithAverageNote']),
+  }
+};
 </script>
 
 <style scoped>
