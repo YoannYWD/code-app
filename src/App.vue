@@ -10,6 +10,3 @@
 <script setup>
 import Navbar from './global-components/Navbar.vue';
 </script>
-
-<style scoped>
-</style>
