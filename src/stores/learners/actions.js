@@ -18,6 +18,9 @@ const actions = {
 
     store.commit('ADD_LEARNER', newLearner);
     return store.state;
+  },
+  sortLearnerNotes : (store, notes) => {
+    store.commit('SORT_LEARNER_NOTES', notes);
   }
 }
 

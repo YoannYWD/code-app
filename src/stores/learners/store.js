@@ -4,14 +4,16 @@ import data      from './data.js';
 import { Store } from 'vuex';
 
 const state = {
-  learnersWithNotes: data.learnersWithNotes,
+  learnersWithNotes : data.learnersWithNotes,
+  learnerNotes : {},
   error : {
     message : null
   },
 }
 
 const getters = {
-  learnersWithNotes : state => state.learnersWithNotes
+  learnersWithNotes : state => state.learnersWithNotes,
+  learnerNotes : state => state.learnerNotes
 };
 
 export default new Store({

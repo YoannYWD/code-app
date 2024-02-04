@@ -12,7 +12,14 @@ function cloneObject (object) {
   return Object.assign({}, object);
 }
 
+function getRowColor(note, type) {
+  if (!note || type !== 'row') return;
+  if (note > 35) return 'table-success';
+  if (note < 20 && note > 0) return 'table-danger';
+}
+
 export default {
   isObjectEqual,
-  cloneObject
+  cloneObject,
+  getRowColor
 }

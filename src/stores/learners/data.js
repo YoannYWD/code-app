@@ -8,7 +8,7 @@ const data = {
       "notes" : [
         {
           "value" : 40,
-          "inputDate" : "2024-02-01"
+          "inputDate" : "2024-02-03"
         },
         {
           "value" : 38,
@@ -16,7 +16,7 @@ const data = {
         },
         {
           "value" : 36,
-          "inputDate" : "2024-02-03"
+          "inputDate" : "2024-02-01"
         }
       ]
     },

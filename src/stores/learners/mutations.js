@@ -15,6 +15,14 @@ const mutations = {
   },
   CLEAR_ERROR_MESSAGE : (state) => {
     state.error.message = null;
+  },
+  SORT_LEARNER_NOTES : (state, notes) => {
+    notes.sort((a, b) => {
+      let dateA = Date.parse(a.inputDate);
+      let dateB = Date.parse(b.inputDate);
+      return dateB - dateA;
+    })
+    state.learnerNotes = notes;
   }
 }
 
