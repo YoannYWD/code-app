@@ -6,7 +6,7 @@ import { Store } from 'vuex';
 const state = {
   learnersWithNotes: data.learnersWithNotes,
   error : {
-    message : ''
+    message : null
   },
 }
 

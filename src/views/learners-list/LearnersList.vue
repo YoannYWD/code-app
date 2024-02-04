@@ -67,7 +67,7 @@ export default {
 
   computed : {
     getLearnersWithAverageNote () {
-      let learnersWithAverageNote = store.getters.learnersWithNotes;
+      const learnersWithAverageNote = store.getters.learnersWithNotes;
       for (const learner of learnersWithAverageNote) {
         let notes = [];
         for (const note of learner.notes) {
