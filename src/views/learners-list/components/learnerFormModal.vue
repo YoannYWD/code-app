@@ -82,10 +82,11 @@ export default {
 
   methods : {
     resetForm () {
-      this.lastName    = '';
-      this.firstName   = '';
-      this.birthDate   = '';
-      this.isFormValid = true;
+      this.lastName            = '';
+      this.firstName           = '';
+      this.birthDate           = '';
+      this.invalidFormFeedback = '';
+      this.isFormValid         = true;
     },
     hideModalAndResetForm () {
       this.$refs['learner-form-modal'].hide();
@@ -100,6 +101,8 @@ export default {
       return valid;
     },
     saveForm () {
+      this.invalidFormFeedback = '';
+      this.isFormValid         = true;
       if (!this.checkFormValidity()) {
         this.invalidFormFeedback = constants.INCOMPLETE_FORM.label
         return;
@@ -111,6 +114,7 @@ export default {
       }).then(res => {
         if (res.error.message) {
           this.invalidFormFeedback = res.error.message;
+          this.isFormValid         = false;
           return;
         }
         this.$nextTick(() => {

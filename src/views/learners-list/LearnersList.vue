@@ -11,6 +11,9 @@
       :tbody-tr-class="getRowColor"
       head-variant="light"
     >
+      <template #cell(initials)="data">
+        <b-avatar variant="info" :text="data.item.initials" />
+      </template>
       <template #cell(actions)="data">
         <div class="d-flex justify-content-end">
           <learner-notes-modal :learner="data.item" />
@@ -47,6 +50,10 @@ export default {
     return {
       tableFields : [
         {
+          key : 'initials',
+          label : ''
+        },
+        {
           key : 'lastName',
           label : 'Nom'
         },
@@ -61,9 +68,9 @@ export default {
         {
           key : 'averageNote',
           label : 'Note moyenne',
-          formatter :  (value) => {
-              return value > -1 ? value : constants.NO_NOTE.label;
-            }
+          formatter : (value) => {
+            return value > -1 ? value : constants.NO_NOTE.label;
+          }
         },
         {
           key : 'actions',
@@ -87,12 +94,16 @@ export default {
         if (learner.averageNote % 1 != 0) {
           learner.averageNote = learner.averageNote.toFixed(2);
         }
+        learner.initials = this.getInitials(learner.lastName, learner.firstName);
       }
       return learnersWithAverageNote;
     }
   },
 
   methods: {
+    getInitials (lastName, firstName) {
+      return firstName.slice(0, 1) + lastName.slice(0, 1);
+    },
     getRowColor (learnerWithNotes, type) {
       return utils.getRowColor(learnerWithNotes.averageNote, type);
     },

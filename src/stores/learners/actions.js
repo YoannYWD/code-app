@@ -12,6 +12,7 @@ const actions = {
       delete learner.id;
       delete learner.notes;
       delete learner.averageNote;
+      delete learner.initials;
 
       if (utils.isObjectEqual(learner, newLearner)) {
         store.commit('ADD_ERROR_MESSAGE');

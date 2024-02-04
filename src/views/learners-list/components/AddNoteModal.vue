@@ -86,9 +86,10 @@ export default {
 
   methods : {
     resetForm () {
-      this.inputDate   = TODAY;
-      this.value       = '';
-      this.isFormValid = true;
+      this.inputDate           = TODAY;
+      this.value               = '';
+      this.isFormValid         = true;
+      this.invalidFormFeedback = '';
     },
     hideModalAndResetForm () {
       this.$refs['add-note-modal'].hide();
@@ -103,6 +104,7 @@ export default {
       return valid;
     },
     saveForm () {
+      this.invalidFormFeedback = '';
       if (!this.checkFormValidity()) {
         this.invalidFormFeedback = constants.INCOMPLETE_FORM.label
         return;
