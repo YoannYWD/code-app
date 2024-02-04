@@ -15,7 +15,7 @@ function cloneObject (object) {
 function getRowColor(note, type) {
   if (!note || type !== 'row') return;
   if (note > 35) return 'table-success';
-  if (note < 20 && note > 0) return 'table-danger';
+  if (note < 20 && note > -1) return 'table-danger';
 }
 
 export default {

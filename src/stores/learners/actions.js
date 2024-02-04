@@ -1,6 +1,9 @@
 import utils     from '../../common/utils.js';
 
 const actions = {
+  /**
+   * Learners actions
+   */
   addLearner : (store, newLearner) => {
     store.commit('CLEAR_ERROR_MESSAGE');
 
@@ -19,6 +22,14 @@ const actions = {
     store.commit('ADD_LEARNER', newLearner);
     return store.state;
   },
+  deleteLearner : (store, learner) => {
+    store.commit('DELETE_LEARNER', learner);
+    return store.state;
+  },
+
+  /**
+   * Notes actions
+   */
   sortLearnerNotes : (store, notes) => {
     store.commit('SORT_LEARNER_NOTES', notes);
   }

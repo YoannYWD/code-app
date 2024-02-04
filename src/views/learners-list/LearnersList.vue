@@ -16,9 +16,7 @@
           <b-button variant="outline-info" title="Ajouter une note" class="ml-1">
             <b-icon icon="plus" aria-hidden="true" />
           </b-button>
-          <b-button variant="outline-danger" title="Supprimer l'élève" class="ml-1">
-            <b-icon icon="trash" aria-hidden="true" />
-          </b-button>
+          <delete-learner-modal :learner="data.item" class="ml-1" />
         </div>
       </template>
     </b-table>
@@ -26,16 +24,18 @@
 </template>
 
 <script>
-import store             from '../../stores/learners/store.js';
-import constants         from '../../common/constants.js';
-import utils             from '../../common/utils.js';
-import learnerFormModal  from './components/LearnerFormModal.vue';
-import learnerNotesModal from './components/LearnerNotesModal.vue';
+import store              from '../../stores/learners/store.js';
+import constants          from '../../common/constants.js';
+import utils              from '../../common/utils.js';
+import learnerFormModal   from './components/LearnerFormModal.vue';
+import learnerNotesModal  from './components/LearnerNotesModal.vue';
+import deleteLearnerModal from './components/DeleteLearnerModal.vue';
 
 export default {
   components: { 
     learnerFormModal,
-    learnerNotesModal
+    learnerNotesModal,
+    deleteLearnerModal
   },
   store,
   data () {
@@ -57,7 +57,7 @@ export default {
           key : 'averageNote',
           label : 'Note moyenne',
           formatter :  (value) => {
-              return value > 0 ? value : constants.NO_NOTE.label;
+              return value > -1 ? value : constants.NO_NOTE.label;
             }
         },
         {
@@ -78,7 +78,7 @@ export default {
           notes.push(note.value);
         }
         const sum           = notes.reduce((a, b) => a + b, 0);
-        learner.averageNote = (sum / notes.length) || 0;
+        learner.averageNote = (sum / notes.length) || -1;
       }
       return learnersWithAverageNote;
     }
