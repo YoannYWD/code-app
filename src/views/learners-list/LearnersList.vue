@@ -2,18 +2,24 @@
   <div class="m-3">
     <div class="d-flex mb-3">
       <h1>Liste des élèves</h1>
-      <b-button variant="outline-info" class="ml-auto">Ajouter un élève</b-button>
+      <learner-form-modal class="ml-auto my-auto"/>
     </div>
     <b-table 
-      :items="learnersWithAverageNote" 
+      :items="learnersWithNotes" 
       :fields="tableFields" 
       :tbody-tr-class="getRowColor"
       head-variant="light"
     >
       <template #cell(actions)="data">
         <!-- {{ data.item.name.first }} is {{ data.item.age }} years old -->
-        <b-button title="Voir les notes">
-          <b-icon icon="eye" aria-hidden="true"></b-icon>
+        <b-button variant="outline-info" title="Voir les notes">
+          <b-icon icon="eye" aria-hidden="true" />
+        </b-button>
+        <b-button variant="outline-info" title="Ajouter une note" class="ml-1">
+          <b-icon icon="plus" aria-hidden="true" />
+        </b-button>
+        <b-button variant="outline-danger" title="Supprimer l'élève" class="ml-1">
+          <b-icon icon="trash" aria-hidden="true" />
         </b-button>
       </template>
     </b-table>
@@ -21,10 +27,13 @@
 </template>
 
 <script>
-import store          from '../../stores/learners/index.js';
-import { mapGetters } from 'vuex';
+import store            from '../../stores/learners/index.js';
+import { mapGetters }   from 'vuex';
+import constants        from '../../common/constants.js';
+import learnerFormModal from './components/learnerFormModal.vue';
 
 export default {
+  components: { learnerFormModal },
   store,
   data () {
     return {
@@ -43,25 +52,29 @@ export default {
         },
         {
           key : 'averageNote',
-          label : 'Note moyenne'
+          label : 'Note moyenne',
+          formatter :  (value) => {
+              return value > 0 ? value : constants.NO_NOTE.label;
+            }
         },
         {
           key : 'actions',
-          label : 'Actions'
+          label : '',
+          class: 'text-right'
         }
       ]
     };
   },
 
   computed : {
-    ...mapGetters(['learnersWithAverageNote']),
+    ...mapGetters(['learnersWithNotes']),
   },
 
   methods: {
-    getRowColor(learnerWithAverageNote, type) {
-      if (!learnerWithAverageNote || type !== 'row') return;
-      if (learnerWithAverageNote.averageNote > 34) return 'table-success';
-      if (learnerWithAverageNote.averageNote < 20) return 'table-danger';
+    getRowColor(learnerWithNotes, type) {
+      if (!learnerWithNotes || type !== 'row') return;
+      if (learnerWithNotes.averageNote > 35) return 'table-success';
+      if (learnerWithNotes.averageNote < 20 && learnerWithNotes.averageNote > 0) return 'table-danger';
     }
   }
 };
