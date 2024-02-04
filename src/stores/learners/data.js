@@ -1,4 +1,4 @@
-const state = {
+const data = {
   learnersWithNotes: [
     {
       "id" : 1,
@@ -63,4 +63,4 @@ const state = {
   ]
 }
 
-export default state;
+export default data;

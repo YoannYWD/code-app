@@ -5,7 +5,7 @@
       <learner-form-modal class="ml-auto my-auto"/>
     </div>
     <b-table 
-      :items="learnersWithNotes" 
+      :items="getLearnersWithAverageNote" 
       :fields="tableFields" 
       :tbody-tr-class="getRowColor"
       head-variant="light"
@@ -27,8 +27,7 @@
 </template>
 
 <script>
-import store            from '../../stores/learners/index.js';
-import { mapGetters }   from 'vuex';
+import store            from '../../stores/learners/store.js';
 import constants        from '../../common/constants.js';
 import learnerFormModal from './components/learnerFormModal.vue';
 
@@ -67,7 +66,18 @@ export default {
   },
 
   computed : {
-    ...mapGetters(['learnersWithNotes']),
+    getLearnersWithAverageNote () {
+      let learnersWithAverageNote = store.getters.learnersWithNotes;
+      for (const learner of learnersWithAverageNote) {
+        let notes = [];
+        for (const note of learner.notes) {
+          notes.push(note.value);
+        }
+        const sum           = notes.reduce((a, b) => a + b, 0);
+        learner.averageNote = (sum / notes.length) || 0;
+      }
+      return learnersWithAverageNote;
+    }
   },
 
   methods: {
