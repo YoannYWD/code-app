@@ -62,9 +62,10 @@ export default {
     },
     confirm () {
       store.dispatch('deleteLearner', this.learner).then(res => {
-        if (!res.error.message) {
-          this.$refs['delete-learner-modal'].hide();
+        if (res.error.message) {
+          return;
         }
+        this.$refs['delete-learner-modal'].hide();
       });
     }
   }

@@ -4,7 +4,8 @@
       <h1>Liste des élèves</h1>
       <learner-form-modal class="ml-auto my-auto"/>
     </div>
-    <b-table 
+    <b-table
+      ref="table" 
       :items="getLearnersWithAverageNote" 
       :fields="tableFields" 
       :tbody-tr-class="getRowColor"
@@ -13,9 +14,11 @@
       <template #cell(actions)="data">
         <div class="d-flex justify-content-end">
           <learner-notes-modal :learner="data.item" />
-          <b-button variant="outline-info" title="Ajouter une note" class="ml-1">
-            <b-icon icon="plus" aria-hidden="true" />
-          </b-button>
+          <add-note-modal 
+            :learner="data.item"
+            class="ml-1"
+            @note-added="refreshTable()" 
+          />
           <delete-learner-modal :learner="data.item" class="ml-1" />
         </div>
       </template>
@@ -29,12 +32,14 @@ import constants          from '../../common/constants.js';
 import utils              from '../../common/utils.js';
 import learnerFormModal   from './components/LearnerFormModal.vue';
 import learnerNotesModal  from './components/LearnerNotesModal.vue';
+import addNoteModal       from './components/AddNoteModal.vue';
 import deleteLearnerModal from './components/DeleteLearnerModal.vue';
 
 export default {
   components: { 
     learnerFormModal,
     learnerNotesModal,
+    addNoteModal,
     deleteLearnerModal
   },
   store,
@@ -79,14 +84,20 @@ export default {
         }
         const sum           = notes.reduce((a, b) => a + b, 0);
         learner.averageNote = (sum / notes.length) || -1;
+        if (learner.averageNote % 1 != 0) {
+          learner.averageNote = learner.averageNote.toFixed(2);
+        }
       }
       return learnersWithAverageNote;
     }
   },
 
   methods: {
-    getRowColor(learnerWithNotes, type) {
+    getRowColor (learnerWithNotes, type) {
       return utils.getRowColor(learnerWithNotes.averageNote, type);
+    },
+    refreshTable () {
+      this.$refs.table.refresh();
     }
   }
 };

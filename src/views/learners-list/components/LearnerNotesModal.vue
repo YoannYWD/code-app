@@ -4,7 +4,6 @@
       <b-icon icon="eye" aria-hidden="true" />
     </b-button>
     <b-modal 
-      :id="getModalId"
       ref="learner-notes-modal" 
       :title="getModalTitle"
       header-bg-variant="info"
@@ -60,9 +59,6 @@ export default {
   computed : {
     getLearnerNotes () {
       return store.getters.learnerNotes;
-    },
-    getModalId () {
-      return 'learner-notes-modal-' + this.learner.id;
     },
     getModalTitle () {
       return this.learner.lastName + ' ' + this.learner.firstName + ' - Notes' ;

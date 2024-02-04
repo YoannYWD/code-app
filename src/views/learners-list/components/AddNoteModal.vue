@@ -1,13 +1,12 @@
 <template>
   <div>
-    <b-button v-b-modal.learner-form-modal variant="outline-info">
+    <b-button v-b-modal="getModalId" variant="outline-info" title="Ajouter une note">
       <b-icon icon="plus" aria-hidden="true" />
-      Ajouter un élève
     </b-button>
     <b-modal 
-      id="learner-form-modal"
-      ref="learner-form-modal" 
-      title="Ajouter un élève"
+      :id="getModalId"
+      ref="add-note-modal" 
+      :title="getModalTitle"
       header-bg-variant="info"
       header-text-variant="light"
       hide-footer
@@ -17,25 +16,18 @@
           :invalid-feedback="invalidFormFeedback"
           :state="isFormValid"
         >
-          <label for="last-name-input">Nom</label>
+          <label for="date-input">Date</label>
           <b-form-input
-            id="last-name-input"
-            type="text"
-            v-model="lastName"
-            required
-          ></b-form-input>
-          <label for="first-name-input" class="mt-3">Prénom</label>
-          <b-form-input
-            id="first-name-input"
-            type="text"
-            v-model="firstName"
-            required
-          ></b-form-input>
-          <label for="birth-date-input" class="mt-3">Date de naissance</label>
-          <b-form-input
-            id="birth-date-input"
+            id="date-input"
             type="date"
-            v-model="birthDate"
+            v-model="inputDate"
+            required
+          ></b-form-input>
+          <label for="value-input" class="mt-3">Note</label>
+          <b-form-input
+            id="value-input"
+            type="number"
+            v-model="value"
             required
           ></b-form-input>
         </b-form-group>
@@ -59,36 +51,47 @@
 </template>
 
 <script>
-import store          from '../../../stores/learners/store.js';
-import constants      from '../../../common/constants.js';
-import { mapGetters } from 'vuex';
+import store     from '../../../stores/learners/store.js';
+import constants from '../../../common/constants.js';
+import dayjs     from 'dayjs';
+
+const TODAY = dayjs().format('YYYY-MM-DD');
 
 export default {
-  name : 'learner-form-modal',
+  name : 'add-note-modal',
   store,
+  props : {
+    learner : {
+      type    : Object,
+      default : function () { return {}; }
+    }
+  },
   data () {
     return {
-      lastName            : '',
-      firstName           : '',
-      birthDate           : '',
+      inputDate           : TODAY,
+      value               : '',
       isFormValid         : true,
       invalidFormFeedback : ''
     }
   },
 
   computed : {
-    ...mapGetters(['learnersWithNotes']),
+    getModalId () {
+      return 'add-note-modal-' + this.learner.id;
+    },
+    getModalTitle () {
+      return 'Ajouter une note à ' + this.learner.lastName + ' ' + this.learner.firstName;
+    }
   },
 
   methods : {
     resetForm () {
-      this.lastName    = '';
-      this.firstName   = '';
-      this.birthDate   = '';
+      this.inputDate   = TODAY;
+      this.value       = '';
       this.isFormValid = true;
     },
     hideModalAndResetForm () {
-      this.$refs['learner-form-modal'].hide();
+      this.$refs['add-note-modal'].hide();
       this.resetForm();
     },
     cancelForm () {
@@ -104,17 +107,17 @@ export default {
         this.invalidFormFeedback = constants.INCOMPLETE_FORM.label
         return;
       }
-      store.dispatch('addLearner', {
-        lastName  : this.lastName,
-        firstName : this.firstName,
-        birthDate : this.birthDate
+      store.dispatch('addNote', {
+        learnerId : this.learner.id,
+        inputDate : this.inputDate,
+        value     : parseInt(this.value)
       }).then(res => {
         if (res.error.message) {
-          this.invalidFormFeedback = res.error.message;
           return;
         }
         this.$nextTick(() => {
           this.hideModalAndResetForm();
+          this.$emit('note-added');
         })
       });
     }

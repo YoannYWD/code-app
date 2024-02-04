@@ -42,6 +42,15 @@ const mutations = {
       return dateB - dateA;
     })
     state.learnerNotes = notes;
+  },
+  ADD_NOTE : (state, note) => {
+    state.learnersWithNotes.find(learner => {
+      if (learner.id !== note.learnerId) {
+        return;
+      }
+      delete note.learnerId;
+      learner.notes.push(note);
+    })
   }
 }
 
