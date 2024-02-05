@@ -26,9 +26,6 @@ export default {
     learner : {
       type    : Object,
       default : function () { return {}; }
-    },
-    openFrom : {
-      type : String
     }
   },
   data () {
