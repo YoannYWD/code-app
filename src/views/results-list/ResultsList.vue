@@ -13,10 +13,10 @@
           class="p-3"
         >
           <b-card
-            :header="getHeader(learnersByNote.note)"
+            :header="getCardHeader(learnersByNote.note)"
             :border-variant="getCardColor(learnersByNote.note)"
             :header-bg-variant="getCardColor(learnersByNote.note)"
-            :header-text-variant="getHeaderTextColor(learnersByNote.note)"
+            :header-text-variant="getCardHeaderTextColor(learnersByNote.note)"
             align="center"
           >
           <b-card-sub-title>Note obtenue par : </b-card-sub-title>
@@ -38,10 +38,9 @@
 <script>
 import store from '../../stores/learners/store.js';
 import utils from '../../common/utils.js';
-import dayjs from 'dayjs';
 
 export default {
-  name : 'learner-notes-modal',
+  name : 'results-list',
   store,
   data () {
     return {
@@ -57,18 +56,17 @@ export default {
   },
 
   methods : {
-    getHeader (note) {
+    getCardHeader (note) {
       return note.toString();
     },
     getCardColor (note) {
       return utils.getCardColor(note);
     },
-    getHeaderTextColor (note) {
-      if (note > 35 || note < 20) return 'light';
-      return;
+    getCardHeaderTextColor (note) {
+      return utils.getCardHeaderTextColor(note);
     },
     getLearnerDetails (learner) {
-      return learner.lastName + ' ' + learner.firstName + ' ' + dayjs(learner.birthDate).format('DD/MM/YYYY');
+      return utils.getLearnerDetails(learner);
     }
   }
 }

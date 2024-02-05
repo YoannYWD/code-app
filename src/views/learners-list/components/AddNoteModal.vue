@@ -21,6 +21,7 @@
             id="date-input"
             type="date"
             v-model="inputDate"
+            @update="resetError"
             required
           ></b-form-input>
           <label for="value-input" class="mt-3">Note</label>
@@ -32,6 +33,7 @@
             aria-describedby="value-input-live-feedback"
             :min="NOTE_RANGE.min" 
             :max="NOTE_RANGE.max"
+            @update="resetError"
             required
           ></b-form-input>
           <b-form-invalid-feedback id="value-input-live-feedback">
@@ -91,7 +93,7 @@ export default {
       return 'Ajouter une note à ' + this.learner.lastName + ' ' + this.learner.firstName;
     },
     getNumberInputState () {
-      return this.value > -1 && this.value < 41 ? null : false
+      return this.value > -1 && this.value < 41 ? null : false;
     },
     getValueInputLiveFeedback () {
       return this.NOTE_RANGE.label;
@@ -99,6 +101,10 @@ export default {
    },
 
   methods : {
+    resetError () {
+      this.isFormValid         = true;
+      this.invalidFormFeedback = '';
+    },
     resetForm () {
       this.inputDate           = TODAY;
       this.value               = '';

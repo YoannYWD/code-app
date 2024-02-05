@@ -46,15 +46,17 @@ export default {
       notes       : [],
       tableFields : [
         {
-          key : 'inputDate',
-          label : 'Date',
+          key       : 'inputDate',
+          label     : 'Date',
+          tdClass   : 'align-middle',
           formatter : (value) => {
             return dayjs(value).format('DD/MM/YYYY')
           }
         },
         {
-          key : 'value',
-          label : 'Note'
+          key     : 'value',
+          label   : 'Note',
+          tdClass : 'align-middle'
         }
       ]
     }

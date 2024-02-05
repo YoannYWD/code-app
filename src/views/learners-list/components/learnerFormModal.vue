@@ -22,6 +22,7 @@
             id="last-name-input"
             type="text"
             v-model="lastName"
+            @update="resetError"
             required
           ></b-form-input>
           <label for="first-name-input" class="mt-3">Prénom</label>
@@ -29,6 +30,7 @@
             id="first-name-input"
             type="text"
             v-model="firstName"
+            @update="resetError"
             required
           ></b-form-input>
           <label for="birth-date-input" class="mt-3">Date de naissance</label>
@@ -36,6 +38,7 @@
             id="birth-date-input"
             type="date"
             v-model="birthDate"
+            @update="resetError"
             required
           ></b-form-input>
         </b-form-group>
@@ -81,6 +84,10 @@ export default {
   },
 
   methods : {
+    resetError () {
+      this.isFormValid         = true;
+      this.invalidFormFeedback = '';
+    },
     resetForm () {
       this.lastName            = '';
       this.firstName           = '';
