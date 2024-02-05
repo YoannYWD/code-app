@@ -5,15 +5,17 @@ import { Store } from 'vuex';
 
 const state = {
   learnersWithNotes : data.learnersWithNotes,
-  learnerNotes : {},
-  error : {
+  learnerNotes      : {},
+  learnersByNote    : [],
+  error             : {
     message : null
   },
 }
 
 const getters = {
   learnersWithNotes : state => state.learnersWithNotes,
-  learnerNotes : state => state.learnerNotes
+  learnerNotes      : state => state.learnerNotes,
+  learnersByNote    : state => state.learnersByNote
 };
 
 export default new Store({

@@ -51,6 +51,37 @@ const mutations = {
       delete note.learnerId;
       learner.notes.push(note);
     })
+  },
+  GET_LEARNERS_BY_NOTES : (state) => {
+    let uniqueNotes     = [];
+    let learnersByNotes = [];
+    for (const learner of state.learnersWithNotes) {
+      for (const note of learner.notes) {
+        if (uniqueNotes.indexOf(note.value) === -1) {
+          uniqueNotes.push(note.value);
+          learnersByNotes.push({
+            note : note.value,
+            learners : []
+          });
+        }
+      }
+      for (const note of learner.notes) {
+        learnersByNotes.find(value => {
+          if (value.note === note.value) {
+            value.learners.push({
+              id        : learner.id,
+              lastName  : learner.lastName, 
+              firstName : learner.firstName, 
+              birthDate : learner.birthDate, 
+            });
+          }
+        })
+      }
+    }
+    learnersByNotes.sort((a, b) => {
+      return b.note - a.note;
+    })
+    state.learnersByNote = learnersByNotes;
   }
 }
 

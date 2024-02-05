@@ -37,6 +37,10 @@ const actions = {
   addNote : (store, note) => {
     store.commit('ADD_NOTE', note);
     return store.state;
+  },
+  getLearnersByNotes : (store) => {
+    store.commit('GET_LEARNERS_BY_NOTES');
+    return store.state.learnersByNote;
   }
 }
 

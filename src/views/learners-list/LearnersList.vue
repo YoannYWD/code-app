@@ -1,7 +1,7 @@
 <template>
   <div class="m-3">
     <div class="d-flex mb-3">
-      <h1>Liste des élèves</h1>
+      <h3>Liste des élèves</h3>
       <learner-form-modal class="ml-auto my-auto"/>
     </div>
     <b-table

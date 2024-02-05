@@ -27,7 +27,7 @@ const data = {
       "birthDate" : "2005-01-01",
       "notes" : [
         {
-          "value" : 35,
+          "value" : 36,
           "inputDate" : "2024-01-28"
         },
         {
@@ -47,7 +47,7 @@ const data = {
       "birthDate" : "2006-01-01",
       "notes" : [
         {
-          "value" : 36,
+          "value" : 2,
           "inputDate" : "2024-01-10"
         },
         {
@@ -55,7 +55,7 @@ const data = {
           "inputDate" : "2024-01-11"
         },
         {
-          "value" : 2,
+          "value" : 38,
           "inputDate" : "2024-01-12"
         }
       ]

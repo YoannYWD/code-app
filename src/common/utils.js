@@ -18,8 +18,14 @@ function getRowColor(note, type) {
   if (note < 20 && note > -1) return 'table-danger';
 }
 
+function getCardColor(note) {
+  if (note > 35) return 'success';
+  if (note < 20) return 'danger';
+}
+
 export default {
   isObjectEqual,
   cloneObject,
-  getRowColor
+  getRowColor,
+  getCardColor
 }
