@@ -1,10 +1,13 @@
 # code-app
 
 This app uses :
+- Vite 3
 - Vue 2
 - Vue Router 3
 - Vuex 3
-- VueTailwind 
+- Bootstrap-vue 
+
+This app requires an internet connection.
 
 ## Project Setup
 
