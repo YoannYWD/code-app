@@ -30,6 +30,7 @@
 <script>
 import store from '../../../stores/learners/store.js';
 import utils from '../../../common/utils.js';
+import dayjs from 'dayjs';
 
 export default {
   name : 'learner-notes-modal',
@@ -46,7 +47,10 @@ export default {
       tableFields : [
         {
           key : 'inputDate',
-          label : 'Date'
+          label : 'Date',
+          formatter : (value) => {
+            return dayjs(value).format('DD/MM/YYYY')
+          }
         },
         {
           key : 'value',

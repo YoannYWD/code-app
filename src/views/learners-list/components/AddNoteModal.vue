@@ -28,8 +28,15 @@
             id="value-input"
             type="number"
             v-model="value"
+            :state="getNumberInputState"
+            aria-describedby="value-input-live-feedback"
+            :min="NOTE_RANGE.min" 
+            :max="NOTE_RANGE.max"
             required
           ></b-form-input>
+          <b-form-invalid-feedback id="value-input-live-feedback">
+            {{ getValueInputLiveFeedback }}
+          </b-form-invalid-feedback>
         </b-form-group>
       </form>
       <div class="mt-3 d-flex justify-content-end">
@@ -70,6 +77,7 @@ export default {
     return {
       inputDate           : TODAY,
       value               : '',
+      NOTE_RANGE          : constants.NOTE_RANGE,
       isFormValid         : true,
       invalidFormFeedback : ''
     }
@@ -81,8 +89,14 @@ export default {
     },
     getModalTitle () {
       return 'Ajouter une note à ' + this.learner.lastName + ' ' + this.learner.firstName;
+    },
+    getNumberInputState () {
+      return this.value > -1 && this.value < 41 ? null : false
+    },
+    getValueInputLiveFeedback () {
+      return this.NOTE_RANGE.label;
     }
-  },
+   },
 
   methods : {
     resetForm () {

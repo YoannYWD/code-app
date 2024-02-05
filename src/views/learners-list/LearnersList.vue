@@ -37,6 +37,7 @@ import learnerFormModal   from './components/LearnerFormModal.vue';
 import learnerNotesModal  from './components/LearnerNotesModal.vue';
 import addNoteModal       from './components/AddNoteModal.vue';
 import deleteLearnerModal from './components/DeleteLearnerModal.vue';
+import dayjs              from 'dayjs';
 
 export default {
   components: { 
@@ -63,7 +64,10 @@ export default {
         },
         {
           key : 'birthDate',
-          label : 'Date de naissance'
+          label : 'Date de naissance',
+          formatter : (value) => {
+            return dayjs(value).format('DD/MM/YYYY')
+          }
         },
         {
           key : 'averageNote',

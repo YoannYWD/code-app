@@ -77,7 +77,7 @@ export default {
   },
 
   computed : {
-    ...mapGetters(['learnersWithNotes']),
+    ...mapGetters(['learnersWithNotes'])
   },
 
   methods : {
