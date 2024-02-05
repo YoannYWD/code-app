@@ -39,7 +39,6 @@
             <b-card-header
               :border-variant="getCardColor(LearnerWithAverageNote.averageNote)"
               :header-bg-variant="getCardColor(LearnerWithAverageNote.averageNote)"
-              :header-text-variant="getCardHeaderTextColor(LearnerWithAverageNote.averageNote)"
               class="mb-3"
               variant="info" 
             >
@@ -159,9 +158,6 @@ export default {
     },
     getCardColor (averageNote) {
       return utils.getCardColor(averageNote);
-    },
-    getCardHeaderTextColor (averageNote) {
-      return utils.getCardHeaderTextColor(averageNote);
     },
     tableVisibleHandler (isVisible) {
       this.isTableVisible = isVisible; 

@@ -22,7 +22,7 @@ function getRowColor (note, type) {
 
 function getCardColor (note) {
   if (note > 35) return 'success';
-  if (note < 20) return 'danger';
+  if (note < 20 && note > -1) return 'danger';
 }
 
 function getLearnerDetails (learner) {
