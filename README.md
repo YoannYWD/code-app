@@ -7,12 +7,15 @@ This app uses :
 - Vuex 3
 - Bootstrap-vue 
 
-This app requires an internet connection.
+This app requires an internet connection and Node 18.
 
 ## Project Setup
 
 ```sh
 git clone https://github.com/YoannYWD/code-app.git
+```
+```sh
+cd clone-app
 ```
 ```sh
 npm install
