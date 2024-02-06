@@ -10,7 +10,7 @@ const mutations = {
       ids.push(learner.id)
     }
     newLearner.id    = Math.max(...ids) + 1;
-    newLearner.notes = [];
+    newLearner.notes = constants.NO_NOTE.notes;
     state.learnersWithNotes.push(newLearner);
   },
   DELETE_LEARNER : (state, learner) => {

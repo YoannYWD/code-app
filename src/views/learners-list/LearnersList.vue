@@ -132,7 +132,7 @@ export default {
           notes.push(note.value);
         }
         const sum           = notes.reduce((a, b) => a + b, 0);
-        learner.averageNote = (sum / notes.length) || -1;
+        learner.averageNote = (sum / notes.length) || constants.NO_NOTE.value;
         learner.initials    = this.getInitials(learner.lastName, learner.firstName);
       }
       return learnersWithAverageNote;
