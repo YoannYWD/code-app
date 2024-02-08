@@ -4,62 +4,70 @@
       <h3>Liste des élèves</h3>
       <learner-form-modal class="ml-auto my-auto"/>
     </div>
-    <b-container v-b-visible="tableVisibleHandler" fluid class="px-0 d-none d-md-block table-container">
-      <b-table
-        ref="table" 
-        :items="getLearnersWithAverageNote" 
-        :fields="tableFields" 
-        :tbody-tr-class="getRowColor"
-        head-variant="light"
-      >
-        <template #cell(initials)="data">
-          <b-avatar :text="data.item.initials" />
-        </template>
-        <template #cell(actions)="data">
-          <div class="d-flex justify-content-end">
-            <learner-list-actions 
-              v-if="isTableVisible" 
-              :learner="data.item" 
-              @note-added="refreshTable"
-            />
-          </div>
-        </template>
-      </b-table>
-    </b-container>
-    <b-container fluid class="px-0 d-md-none">
-      <b-row class="mb-3">
-        <b-col 
-          v-for="LearnerWithAverageNote of getLearnersWithAverageNote"
-          :key="LearnerWithAverageNote.id"
-          lg="4"
-          md="6"
-          class="p-3"
+    <div v-if="getLearnersWithAverageNote.length">
+      <b-container v-b-visible="tableVisibleHandler" fluid class="px-0 d-none d-md-block table-container">
+        <b-table
+          ref="table" 
+          :items="getLearnersWithAverageNote" 
+          :fields="tableFields" 
+          :tbody-tr-class="getRowColor"
+          head-variant="light"
         >
-          <b-card align="center" no-body>
-            <b-card-header
-              :border-variant="getCardColor(LearnerWithAverageNote.averageNote)"
-              :header-bg-variant="getCardColor(LearnerWithAverageNote.averageNote)"
-              class="mb-3"
-              variant="info" 
-            >
-              <b-avatar :text="LearnerWithAverageNote.initials" />
-            </b-card-header>
-            <b-card-title>
-              {{ getCardHeader(LearnerWithAverageNote) }}
-            </b-card-title>
-            <b-card-sub-title>
-              Note moyenne :
-            </b-card-sub-title>
-            <b-card-text>
-              {{ getFormattedAverageNote(LearnerWithAverageNote.averageNote) }}
-            </b-card-text>
-            <div class="d-flex justify-content-center mb-3">
-              <learner-list-actions v-if="!isTableVisible" :learner="LearnerWithAverageNote" />
+          <template #cell(initials)="data">
+            <b-avatar :text="data.item.initials" />
+          </template>
+          <template #cell(actions)="data">
+            <div class="d-flex justify-content-end">
+              <learner-list-actions 
+                v-if="isTableVisible" 
+                :learner="data.item" 
+                @note-added="refreshTable"
+              />
             </div>
-          </b-card>
-        </b-col>
-      </b-row>
-    </b-container>
+          </template>
+        </b-table>
+      </b-container>
+      <b-container fluid class="px-0 d-md-none">
+        <b-row class="mb-3">
+          <b-col 
+            v-for="LearnerWithAverageNote of getLearnersWithAverageNote"
+            :key="LearnerWithAverageNote.id"
+            lg="4"
+            md="6"
+            class="p-3"
+          >
+            <b-card align="center" no-body>
+              <b-card-header
+                :border-variant="getCardColor(LearnerWithAverageNote.averageNote)"
+                :header-bg-variant="getCardColor(LearnerWithAverageNote.averageNote)"
+                class="mb-3"
+                variant="info" 
+              >
+                <b-avatar :text="LearnerWithAverageNote.initials" />
+              </b-card-header>
+              <b-card-title>
+                {{ getCardHeader(LearnerWithAverageNote) }}
+              </b-card-title>
+              <b-card-sub-title>
+                Note moyenne :
+              </b-card-sub-title>
+              <b-card-text>
+                {{ getFormattedAverageNote(LearnerWithAverageNote.averageNote) }}
+              </b-card-text>
+              <div class="d-flex justify-content-center mb-3">
+                <learner-list-actions v-if="!isTableVisible" :learner="LearnerWithAverageNote" />
+              </div>
+            </b-card>
+          </b-col>
+        </b-row>
+      </b-container>
+    </div>
+    <p
+      v-if="!getLearnersWithAverageNote.length"
+      class="d-flex justify-content-center"
+    >
+      {{ getNoLearnerLabel }}
+    </p>
   </div>
 </template>
 
@@ -136,6 +144,9 @@ export default {
         learner.initials    = this.getInitials(learner.lastName, learner.firstName);
       }
       return learnersWithAverageNote;
+    },
+    getNoLearnerLabel () {
+      return constants.NO_LEARNER.label;
     }
   },
 

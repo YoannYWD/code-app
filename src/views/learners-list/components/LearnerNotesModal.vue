@@ -11,11 +11,18 @@
       hide-footer
     >
       <b-table 
+        v-if="getLearnerNotes.length"
         :items="getLearnerNotes" 
         :fields="tableFields" 
         :tbody-tr-class="getRowColor"
         head-variant="light"
       />
+      <p
+        v-if="!getLearnerNotes.length"
+        class="d-flex justify-content-center"
+      >
+        {{ getNoNoteLabel }}
+      </p>
       <div class="mt-3 d-flex justify-content-end">
         <b-button 
           @click="close"
@@ -28,9 +35,10 @@
 </template>
 
 <script>
-import store from '../../../stores/learners/store.js';
-import utils from '../../../common/utils.js';
-import dayjs from 'dayjs';
+import store     from '../../../stores/learners/store.js';
+import utils     from '../../../common/utils.js';
+import constants from '../../../common/constants';
+import dayjs     from 'dayjs';
 
 export default {
   name : 'learner-notes-modal',
@@ -68,6 +76,9 @@ export default {
     },
     getModalTitle () {
       return this.learner.lastName + ' ' + this.learner.firstName + ' - Notes' ;
+    },
+    getNoNoteLabel () {
+      return constants.NO_NOTE.label;
     }
   },
 
