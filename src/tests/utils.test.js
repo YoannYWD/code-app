@@ -86,7 +86,7 @@ describe('Utils functions', () => {
   });
 
   describe('cloneObject', () => { 
-    it('should return undefined is param is not an object', done => {
+    it('should return undefined if param is not an object', done => {
       expect(utils.cloneObject('')).toBe(undefined);
       done();
     });
