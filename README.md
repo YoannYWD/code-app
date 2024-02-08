@@ -23,3 +23,8 @@ npm install
 ```sh
 npm run dev
 ```
+
+## Tests with Jest
+```sh
+npm test
+```
