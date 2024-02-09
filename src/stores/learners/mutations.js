@@ -67,7 +67,7 @@ const mutations = {
       }
       for (const note of learner.notes) {
         learnersByNotes.find(value => {
-          if (value.note === note.value) {
+          if (value.note === note.value && !value.learners.find(value => value.id === learner.id)) {
             value.learners.push({
               id        : learner.id,
               lastName  : learner.lastName, 
